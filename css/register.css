@@ -1,0 +1,338 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #081F5C, #123A8C, #ffffff);
+}
+
+.container {
+    width: 1100px;
+    height: 650px;
+    background: white;
+    display: flex;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .15);
+}
+
+.left-side {
+    flex: 1;
+    background: linear-gradient(135deg, #123A8C, #081F5C);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 40px;
+}
+
+.logo {
+    width: 170px;
+}
+
+.left-side h1 {
+    font-size: 48px;
+    margin-top: 20px;
+}
+
+.right-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.register-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+.register-card h2 {
+    font-size: 40px;
+    color: #081F5C;
+}
+
+.register-card p {
+    margin: 10px 0 25px;
+}
+
+.register-card input {
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 15px;
+    border: none;
+    background: #f4f4f4;
+    border-radius: 12px;
+}
+
+.captcha-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#captchaText {
+    flex: 1;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #081F5C;
+}
+
+.captcha-box button {
+    width: 60px;
+    border: none;
+    background: #ff8c00;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    background: #ff8c00;
+    color: white;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.back-login {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#notificationContainer {
+
+    position: fixed;
+
+    top: 30px;
+    right: 30px;
+
+    z-index: 9999;
+}
+
+.custom-notif {
+
+    width: 360px;
+
+    padding: 18px 22px;
+
+    margin-bottom: 15px;
+
+    border-radius: 20px;
+
+    backdrop-filter: blur(16px);
+
+    background:
+        rgba(255, 255, 255, .92);
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, .15);
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    transform:
+        translateX(450px);
+
+    opacity: 0;
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation:
+        slideIn .7s cubic-bezier(.16, 1, .3, 1) forwards,
+        floatNotif 2.8s ease-in-out infinite;
+}
+
+.custom-notif.success {
+    border-left: 6px solid #00b894;
+}
+
+.custom-notif.error {
+    border-left: 6px solid #ff4d4f;
+}
+
+.custom-notif.warning {
+    border-left: 6px solid #ff8c00;
+}
+
+.notif-icon {
+
+    font-size: 28px;
+}
+
+.notif-text h3 {
+
+    font-size: 18px;
+    color: #081F5C;
+}
+
+.notif-text p {
+
+    font-size: 14px;
+    color: #666;
+
+    margin-top: 4px;
+}
+
+.notif-progress {
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    height: 5px;
+    width: 100%;
+
+    border-radius: 0 0 20px 20px;
+
+    animation:
+        progressBar 3s linear forwards;
+}
+
+.success .notif-progress {
+    background: #00b894;
+}
+
+.error .notif-progress {
+    background: #ff4d4f;
+}
+
+.warning .notif-progress {
+    background: #ff8c00;
+}
+
+.custom-notif::before {
+
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 60%;
+    height: 100%;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, .45),
+            transparent);
+
+    transform: skewX(-25deg);
+
+    animation:
+        shine 2.5s infinite;
+}
+
+@keyframes slideIn {
+
+    0% {
+        transform: translateX(450px) scale(.8);
+        opacity: 0;
+    }
+
+    70% {
+        transform: translateX(-12px) scale(1.03);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(450px);
+        opacity: 0;
+    }
+}
+
+@keyframes progressBar {
+
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+@keyframes floatNotif {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes shine {
+
+    100% {
+        left: 160%;
+    }
+}
+
+.page-enter {
+    animation: pageEnter .8s cubic-bezier(.16, 1, .3, 1);
+}
+
+@keyframes pageEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(.96);
+        filter: blur(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes pageExit {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-30px) scale(.96);
+        filter: blur(10px);
+    }
+}

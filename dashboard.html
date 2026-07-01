@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | YouthCommittee</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo-area">
+
+            <img src="assets/Logo.png">
+
+            <h2>YouthCommittee</h2>
+
+            <span>
+                Karang Taruna Digital
+            </span>
+
+        </div>
+
+        <ul>
+
+            <li class="active" onclick="showPage('dashboardPage', this)">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </li>
+
+            <li onclick="showPage('profilePage', this)">
+                <i class="fa-solid fa-users"></i>
+                <span>Profil Karang Taruna</span>
+            </li>
+
+            <li onclick="showPage('strukturPage', this)">
+                <i class="fa-solid fa-sitemap"></i>
+                <span>Struktur Organisasi</span>
+            </li>
+
+            <li onclick="showPage('programPage', this)">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Program Kerja</span>
+            </li>
+
+            <li onclick="showPage('pengumumanPage', this)">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span>Pengumuman</span>
+            </li>
+
+            <li id="menuWarga">
+                <a href="#" onclick="verifyAdminAccess()" class="menu-link">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Data Warga</span>
+                </a>
+            </li>
+
+        </ul>
+        <button class="logout-btn" onclick="logout()">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </button>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+        <div id="dashboardPage" class="page-section">
+
+            <!-- TOPBAR -->
+
+            <div class="topbar">
+
+                <div class="topbar-left">
+
+                    <h1 id="welcomeText"></h1>
+
+                    <p>
+                        Dashboard Sistem Informasi Karang Taruna
+                    </p>
+
+                </div>
+
+                <div class="topbar-right">
+
+                    <div class="notification">
+
+                        <i class="fa-solid fa-bell"></i>
+
+                    </div>
+
+                    <div class="profile-box">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <span id="userName">
+                            User
+                        </span>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- HERO -->
+
+            <div class="hero-card">
+
+                <div>
+
+                    <h2>
+                        Selamat Datang di YouthCommittee
+                    </h2>
+
+                    <p>
+
+                        Kelola data organisasi, data warga, dan informasi Karang Taruna dalam satu dashboard modern dan
+                        aman.
+
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <button onclick="verifyAdminAccess()">
+                            <i class="fa-solid fa-users"></i>
+                            Data Warga
+                        </button>
+
+                        <button onclick="scrollToStats()">
+                            <i class="fa-solid fa-chart-column"></i>
+                            Statistik
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- QUICK ACTION -->
+            <div class="quick-actions">
+
+                <div class="action-card" onclick="verifyAdminAccess()">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Data Warga</span>
+                </div>
+
+                <div class="action-card" onclick="showPage('programPage')">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Program Kerja</span>
+                </div>
+
+                <div class="action-card" onclick="scrollToStats()">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Statistik</span>
+                </div>
+
+                <div class="action-card" onclick="showPage('pengumumanPage')">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>Pengumuman</span>
+                </div>
+
+            </div>
+            <!-- STATISTIC CARD -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <div class="card-icon orange">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Total Warga</h3>
+
+                        <h1 id="totalWarga">
+                            0
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="card-icon blue">
+
+                        <i class="fa-solid fa-mars"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Laki-Laki</h3>
+
+                        <h1 id="totalPria">
+                            0
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="card-icon pink">
+
+                        <i class="fa-solid fa-venus"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Perempuan</h3>
+
+                        <h1 id="totalWanita">
+                            0
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="card-icon green">
+
+                        <i class="fa-solid fa-house-user"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Kepala Keluarga</h3>
+
+                        <h1 id="totalKK">
+                            0
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                
+
+            </div>
+
+            <!-- CHART SECTION -->
+
+            <div class="charts-grid">
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>
+                            <i class="fa-solid fa-chart-pie"></i>
+                            Statistik Jenis Kelamin
+                        </h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="genderChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>
+                            <i class="fa-solid fa-chart-column"></i>
+                            Status Keluarga
+                        </h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>
+                            <i class="fa-solid fa-location-dot"></i>
+                            Persebaran Alamat
+                        </h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="alamatChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card activity-card">
+                    <div class="chart-header">
+                        <h3>
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            Aktivitas Sistem
+                        </h3>
+                    </div>
+
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <span class="dot green"></span>
+                            Login admin berhasil
+                        </div>
+
+                        <div class="activity-item">
+                            <span class="dot blue"></span>
+                            Import data warga
+                        </div>
+
+                        <div class="activity-item">
+                            <span class="dot orange"></span>
+                            Export laporan Excel
+                        </div>
+
+                        <div class="activity-item">
+                            <span class="dot red"></span>
+                            Security check aktif
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="profilePage" class="page-section hidden">
+
+            <div class="page-header">
+                <h1>Profil Karang Taruna</h1>
+                <p>Tentang YouthCommittee</p>
+            </div>
+
+            <div class="hero-card">
+                <div>
+                    <h2>YouthCommittee</h2>
+                    <p>Karang Taruna Digital RT 03 RW 09</p>
+                </div>
+
+                <div class="hero-icon">
+                    <i class="fa-solid fa-handshake-angle"></i>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>Tentang Organisasi</h2>
+
+                <p>
+                    YouthCommittee adalah organisasi kepemudaan berbasis digital
+                    yang mewadahi pemuda-pemudi potensial dari RT 03 RW 09.
+                    Organisasi ini terdiri dari mahasiswa aktif yang berasal dari
+                    berbagai universitas dan disiplin ilmu yang beragam, seperti
+                    teknik, informatika, pendidikan, ekonomi, kesehatan, dan ilmu sosial.
+
+                    Perbedaan latar belakang akademik tersebut membentuk lingkungan
+                    kolaboratif yang kaya akan perspektif, inovasi, dan kreativitas.
+                    Melalui sinergi antaranggota, YouthCommittee hadir sebagai ruang
+                    pengembangan diri sekaligus penggerak kegiatan sosial yang mampu
+                    memberikan dampak nyata bagi masyarakat.
+                </p>
+            </div>
+
+            <div class="quick-actions">
+                <div class="action-card">
+                    <h3>Visi</h3>
+                    <p>
+                        Menjadi wadah generasi muda yang aktif,
+                        kreatif, inovatif, dan berkontribusi.
+                    </p>
+                </div>
+
+                <div class="action-card">
+                    <h3>Misi</h3>
+                    <p>
+                        Meningkatkan solidaritas, kegiatan sosial,
+                        kreativitas, dan digitalisasi organisasi.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TUJUAN -->
+            <div class="tujuan-card">
+                <h2>Tujuan Karang Taruna</h2>
+                <ul>
+                    <li>Meningkatkan solidaritas antar pemuda.</li>
+                    <li>Menjadi wadah pengembangan potensi generasi muda.</li>
+                    <li>Mendorong transformasi digital organisasi.</li>
+                    <li>Menciptakan kegiatan sosial yang bermanfaat.</li>
+                </ul>
+            </div>
+
+            <div class="nilai-section">
+                <h2>Nilai Organisasi</h2>
+
+                <div class="nilai-grid">
+
+                    <div class="nilai-card">
+                        <i class="fa-solid fa-chess-king"></i>
+                        <h3>Leadership</h3>
+                        <p>
+                            YouthCommittee mendorong setiap anggota untuk memiliki jiwa
+                            kepemimpinan, tanggung jawab, serta keberanian dalam mengambil keputusan.
+                        </p>
+                    </div>
+
+                    <div class="nilai-card">
+                        <i class="fa-solid fa-handshake"></i>
+                        <h3>Collaboration</h3>
+                        <p>
+                            YouthCommittee menjunjung kolaborasi lintas bidang dan kemitraan eksternal.
+                            Hal ini dibuktikan saat tim berhasil mengelola acara Halal Bihalal
+                            dengan dukungan sponsor dan investor yang diperoleh melalui networking anggota.
+                        </p>
+                    </div>
+
+                    <div class="nilai-card">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <h3>Innovation</h3>
+                        <p>
+                            Organisasi terus mendorong ide kreatif dan solusi digital untuk
+                            meningkatkan efektivitas program kerja dan pengelolaan organisasi.
+                        </p>
+                    </div>
+
+                    <div class="nilai-card">
+                        <i class="fa-solid fa-heart"></i>
+                        <h3>Social Impact</h3>
+                        <p>
+                            Seluruh kegiatan YouthCommittee diarahkan untuk memberi manfaat
+                            nyata bagi masyarakat dan memperkuat solidaritas sosial.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="strukturPage" class="page-section hidden">
+            <div class="page-header">
+                <h1>Struktur Organisasi</h1>
+                <p>Susunan kepengurusan YouthCommittee</p>
+            </div>
+
+            <div class="org-flow">
+
+                <!-- Chief -->
+                <div class="org-level chief-level">
+                    <div class="org-card chief-card">
+                        <img src="assets/anggota/default.jpg" class="org-photo">
+                        <h3>Chief Mentor</h3>
+                        <p>Husni Mubarak</p>
+                    </div>
+                </div>
+
+                <!-- Advisors -->
+                <div class="org-level">
+                    <div class="org-card advisor-card">
+                        <img src="assets/anggota/saefudin.jpg" class="org-photo">
+                        <h3>Senior Technical Advisor</h3>
+                        <p>Muhammad Saefudin</p>
+                    </div>
+
+                    <div class="org-card advisor-card">
+                        <img src="assets/anggota/sholeh.jpg" class="org-photo">
+                        <h3>Senior Technical Advisor</h3>
+                        <p>Sholeh Agung</p>
+                    </div>
+                </div>
+
+                <!-- Lead -->
+                <div class="org-level">
+                    <div class="org-card lead-card">
+                        <img src="assets/anggota/rosyiq.png" class="org-photo">
+                        <h3>Lead Strategic Management</h3>
+                        <p>Rosyiq Fatin Fakhiro</p>
+                    </div>
+                </div>
+
+                <!-- Co Lead -->
+                <div class="org-level">
+                    <div class="org-card colead-card">
+                        <img src="assets/anggota/aabinawa.png" class="org-photo">
+                        <h3>Co-Lead</h3>
+                        <p>Aabinawa</p>
+                    </div>
+                </div>
+
+                <!-- Secretary Treasurer -->
+                <div class="org-level">
+                    <div class="org-card secretary-card">
+                        <img src="assets/anggota/riza.jpg" class="org-photo">
+                        <h3>Secretary</h3>
+                        <p>Nurriza Ananda</p>
+                    </div>
+
+                    <div class="org-card treasurer-card">
+                        <img src="assets/anggota/arsa.jpg" class="org-photo">
+                        <h3>Treasurer</h3>
+                        <p>Arsa Putra</p>
+                    </div>
+                </div>
+
+                <div class="org-level">
+                    <div class="org-card secretary-card">
+                        <img src="assets/anggota/syarif.jpg" class="org-photo">
+                        <h3>Creative Director</h3>
+                        <p>Muttashil Syarif</p>
+                    </div>
+
+                    <div class="org-card treasurer-card">
+                        <img src="assets/anggota/hamam.jpg" class="org-photo">
+                        <h3>Project Manager</h3>
+                        <p>Hammam Washif</p>
+                    </div>
+
+                    <div class="org-card treasurer-card">
+                        <img src="assets/anggota/default.jpg" class="org-photo">
+                        <h3>Legal Officer</h3>
+                        <p>Fakhrie Jahidi</p>
+                    </div>
+                </div>
+
+                <!-- Teams -->
+                <div class="org-level">
+                    <div class="org-card media-card">
+                        <img src="assets/anggota/rafi.jpg" class="org-photo">
+                        <h3>Media Team</h3>
+                        <p>Rafi Akbar Nugrahadi</p>
+                    </div>
+
+                    <div class="org-card project-card">
+                        <img src="assets/anggota/irsyad.jpg" class="org-photo">
+                        <h3>Project Manager</h3>
+                        <p>Muhammad Irsyad</p>
+                    </div>
+
+                    <div class="org-card legal-card">
+                        <img src="assets/anggota/zain.jpg" class="org-photo">
+                        <h3>Legal Officer</h3>
+                        <p>Zain Saputra</p>
+                    </div>
+                    <div class="org-card legal-card">
+                        <img src="assets/anggota/raffli.jpg" class="org-photo">
+                        <h3>Media Team</h3>
+                        <p>Muhammad Raffli</p>
+                    </div>
+                    <div class="org-card legal-card">
+                        <img src="assets/anggota/alfa.jpg" class="org-photo">
+                        <h3>Media Team</h3>
+                        <p>Ibnu Alfarizi</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="org-detail-section">
+
+                <h2>Detail Struktur Organisasi</h2>
+
+                <div class="detail-card">
+                    <h3>A. Dewan Mentor & Pembina</h3>
+                    <ul>
+                        <li><b>Mentor Utama:</b> Bpk. Husni Mubarak (S1 Teknik Elektro)</li>
+                        <li><b>Penanggung Jawab:</b> Bpk. H. Sukardi, S.Pd.I, M.Pd.I (Ketua RT 03)</li>
+                        <li><b>Senior Technical Advisor:</b> Mas Udin & Mas Agung ( S1 Sistem Informasi)</li>
+                    </ul>
+                </div>
+
+                <div class="detail-card">
+                    <h3>1. Strategic Management & Partnership</h3>
+                    <p>
+                        Bertanggung jawab atas tata kelola bisnis, lobi mitra The Big Five,
+                        dan administrasi.
+                    </p>
+
+                    <ul>
+                        <li><b>Lead:</b> Rosyiq Fathin Fakhiro (S1 Manajemen)</li>
+                        <li><b>Co-Lead:</b> Abinawa (S1 Teknologi Pangan)</li>
+                        <li><b>Member:</b> Arsa Syailendra Putra (S1 Akuntansi), Zain Saputra (S1 Hukum)</li>
+                    </ul>
+                </div>
+
+                <div class="detail-card">
+                    <h3>2. Operations & Industrial System</h3>
+                    <p>
+                        Bertanggung jawab atas efisiensi arus konvoi 38 VW,
+                        logistik armada, dan manajemen waktu.
+                    </p>
+
+                    <ul>
+                        <li><b>Project Manager:</b> Hammam Washif Shidqi Mubarak ( S1 Teknik Industri)</li>
+                        <li><b>Support:</b> Muhammad Irsyad (S1 Teknik Informatika), Ibnu Al Farizi (S1 Teknik Industri)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="detail-card">
+                    <h3>3. Creative & Industrial Design</h3>
+                    <p>
+                        Bertanggung jawab atas estetika acara,
+                        visualisasi brand sponsor, dan dokumentasi cinematic.
+                    </p>
+
+                    <ul>
+                        <li><b>Creative Director:</b> Muttashil Syarif Amani Mubarak (S1 Design Produk)</li>
+                        <li><b>Media Team:</b> Rafi Akbar Nugrahadi (S1 Pengelolaan Hutan) & Muhammad Raffli (S1 Teknik
+                            Mesin)</li>
+                    </ul>
+                </div>
+
+                <div class="detail-card">
+                    <h3>4. Legal & Compliance</h3>
+                    <p>
+                        Bertanggung jawab atas standarisasi adab,
+                        kepatuhan aturan, dan manajemen risiko perjalanan.
+                    </p>
+
+                    <ul>
+                        <li><b>Legal Officer:</b> Fakhrie Jihadi Arsyadalhaq Mubarak (S1 Hukum)</li>
+                        <li><b>Compliance Member:</b> Nurriza Ananda (D4 Demografi Pencatatan Sipil)</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="programPage" class="page-section hidden">
+
+            <div class="page-header">
+                <h1>Program Kerja</h1>
+                <p>Agenda dan realisasi kegiatan YouthCommittee tahun 2026</p>
+            </div>
+
+            <!-- PROGRAM TERLAKSANA -->
+            <div class="content-card">
+                <h2>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Program Kerja Terlaksana
+                </h2>
+
+                <div class="program-card selesai">
+                    <h3>Syawal Ceria: The Golden Route</h3>
+                    <span class="status selesai-badge">Selesai</span>
+
+                    <p>
+                        Program Halal Bihalal “Syawal Ceria: The Golden Route” telah
+                        berhasil dilaksanakan dengan tingkat partisipasi warga yang
+                        sangat tinggi. Kegiatan ini menjadi momentum penting dalam
+                        mempererat silaturahmi antarwarga sekaligus memperkuat
+                        kebersamaan pasca Hari Raya Idulfitri.
+                    </p>
+
+                    <p>
+                        Melalui strategi kolaborasi dan pendekatan kemitraan yang
+                        dilakukan oleh YouthCommittee, program ini juga berhasil
+                        memperoleh dukungan pendanaan dari investor eksternal.
+                        Dukungan tersebut memberikan efisiensi anggaran yang signifikan,
+                        sehingga kas RT dapat menghemat pengeluaran hingga
+                        <b>Rp2.000.000</b> tanpa mengurangi kualitas pelaksanaan acara.
+                    </p>
+                </div>
+            </div>
+
+            <!-- PROGRAM MENDATANG -->
+            <div class="content-card">
+                <h2>
+                    <i class="fa-solid fa-hourglass-half"></i>
+                    Program Kerja Mendatang
+                </h2>
+
+                <div class="program-card upcoming">
+                    <h3>Perayaan HUT Kemerdekaan RI</h3>
+                    <span class="status upcoming-badge">Coming Soon</span>
+
+                    <p>
+                        YouthCommittee tengah mempersiapkan rangkaian kegiatan untuk
+                        memeriahkan Hari Ulang Tahun Republik Indonesia.
+                    </p>
+
+                    <ul>
+                        <li>Tirakatan malam kemerdekaan</li>
+                        <li>Jalan sehat warga</li>
+                        <li>Perlombaan khas 17 Agustus</li>
+                        <li>Acara puncak perayaan HUT RI</li>
+                    </ul>
+
+                    <p>
+                        Program ini dirancang untuk meningkatkan partisipasi masyarakat,
+                        memperkuat semangat nasionalisme, serta mempererat solidaritas
+                        antarwarga melalui kegiatan yang edukatif dan rekreatif.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="pengumumanPage" class="page-section hidden">
+            <div class="page-header">
+                <h1>Pengumuman</h1>
+            </div>
+
+            <div class="content-card">
+                <p>Pengumuman terbaru akan tampil di sini.</p>
+            </div>
+        </div>
+
+        <script src="js/notification.js"></script>
+        <script src="js/audit.js"></script>
+        <script src="js/auth.js"></script>
+        <script src="js/advanced-security.js"></script>
+        <script src="js/dashboard.js"></script>
+
+        <script>
+
+            const currentUser =
+                sessionStorage.getItem("user");
+
+            if (currentUser) {
+
+                document.getElementById(
+                    "userName"
+                ).innerHTML =
+                    currentUser;
+
+            }
+
+        </script>
+        <div id="notificationContainer"></div>
+
+</body>
+
+</html>

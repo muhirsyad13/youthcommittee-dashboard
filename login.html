@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - YouthCommittee</title>
+
+    <link rel="stylesheet" href="css/login.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+    <div class="container page-enter">
+
+        <div class="left-side">
+
+            <img src="assets/Logo.png" class="logo">
+
+            <h1>YouthCommittee</h1>
+
+            <p>
+                Dashboard Karang Taruna Digital
+            </p>
+
+        </div>
+
+        <div class="right-side">
+
+            <div class="login-card">
+
+                <h2>Login</h2>
+
+                <p>
+                    Silahkan masuk ke sistem
+                </p>
+
+                <div class="input-group">
+
+                    <i class="fa fa-user"></i>
+
+                    <input type="text" id="username" placeholder="Username">
+
+                </div>
+
+                <div class="input-group">
+
+                    <i class="fa fa-lock"></i>
+
+                    <input type="password" id="password" placeholder="Password">
+
+                    <span id="togglePassword">
+
+                        <i class="fa fa-eye"></i>
+
+                    </span>
+
+                </div>
+
+                <div class="captcha-box">
+
+                    <div id="captchaText"></div>
+
+                    <button onclick="generateCaptcha()">
+
+                        <i class="fa fa-rotate"></i>
+
+                    </button>
+
+                </div>
+
+                <input type="text" id="captchaInput" placeholder="Masukkan Captcha">
+
+                <div class="remember">
+
+                    <input type="checkbox">
+
+                    <label>
+                        Remember Me
+                    </label>
+
+                </div>
+
+                <button class="login-btn" onclick="login()">
+
+                    Masuk
+
+                </button>
+
+                <div class="register-link">
+                    Belum punya akun?
+                    <a href="#" onclick="goRegister()">
+                        Daftar Sekarang
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div id="notificationContainer"></div>
+
+    <script src="js/notification.js"></script>
+
+    <script src="data/users.js"></script>
+
+    <script src="js/captcha.js"></script>
+
+    <script src="js/security.js"></script>
+
+    <script src="js/audit.js"></script>
+
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Warga</title>
+
+    <link rel="stylesheet" href="css/warga.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>
+                🛡 Data Warga RT 03 RW 09
+            </h1>
+
+            <a href="dashboard.html">
+
+                <button class="back-btn">
+
+                    <i class="fa fa-arrow-left"></i>
+
+                    Dashboard
+
+                </button>
+
+            </a>
+
+        </div>
+
+        <div id="captchaContainer">
+
+            <div class="captcha-card">
+
+                <h2>
+                    Verifikasi Admin
+                </h2>
+
+                <p>
+                    Masukkan captcha untuk membuka data warga
+                </p>
+
+                <div id="adminCaptcha"></div>
+
+                <input type="text" id="adminInput" placeholder="Masukkan Captcha">
+
+                <button onclick="verifyAdmin()">
+
+                    Verifikasi
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h4>Total Warga</h4>
+                    <h2 id="totalWarga">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Laki-Laki</h4>
+                    <h2 id="pria">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Perempuan</h4>
+                    <h2 id="wanita">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Kepala Keluarga</h4>
+                    <h2 id="kk">0</h2>
+                </div>
+            </div>
+
+            <!-- FORM INPUT -->
+            <div class="form-card">
+
+                <h2>Tambah Data Warga</h2>
+
+                <div class="form-grid">
+
+                    <input type="text" id="nama" placeholder="Nama Warga">
+
+                    <input type="number" id="usia" placeholder="Usia">
+
+                    <select id="jk">
+                        <option value="">Jenis Kelamin</option>
+                        <option>Laki-Laki</option>
+                        <option>Perempuan</option>
+                    </select>
+
+                    <input type="text" id="alamat" placeholder="Alamat / RT">
+
+                    <select id="status">
+                        <option value="">Status Keluarga</option>
+                        <option>Kepala Keluarga</option>
+                        <option>Istri</option>
+                        <option>Anak</option>
+                    </select>
+
+                    <button onclick="addResident()">
+                        Simpan Data
+                    </button>
+
+                </div>
+            </div>
+            <div class="toolbar">
+
+                <input type="text" id="searchInput" placeholder="🔍 Cari Nama Warga">
+
+                <select id="filterStatus">
+
+                    <option value="">
+                        Semua Status
+                    </option>
+
+                    <option value="Kepala Keluarga">
+                        Kepala Keluarga
+                    </option>
+
+                    <option value="Istri">
+                        Istri
+                    </option>
+
+                    <option value="Anak">
+                        Anak
+                    </option>
+
+                </select>
+
+                <input type="file" id="excelFile" accept=".xlsx,.xls" hidden>
+
+                <button class="import-btn" onclick="
+    document
+    .getElementById(
+    'excelFile'
+    ).click()
+    ">
+
+                    <i class="fa-solid fa-file-import"></i>
+                    Import Excel
+
+                </button>
+
+                <button class="excel-btn">
+
+                    <i class="fa-solid fa-file-excel"></i>
+                    Export Excel
+
+                </button>
+
+                <button class="reset-btn" onclick="resetResidents()">
+                    <i class="fa-solid fa-trash"></i>
+                    Reset Data
+                </button>
+
+                <button class="pdf-btn">
+
+                    <i class="fa-solid fa-file-pdf"></i>
+                    Export PDF
+
+                </button>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Usia</th>
+                            <th>JK</th>
+                            <th>Alamat</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tbody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="js/audit.js"></script>
+    <script src="js/warga.js"></script>
+
+</body>
+
+</html>
