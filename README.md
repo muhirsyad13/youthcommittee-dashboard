@@ -159,31 +159,6 @@ project/
 
 ---
 
-## Cara Menjalankan Project
-
-### Clone Repository
-
-```bash
-git clone https://github.com/USERNAME/REPOSITORY.git
-```
-
-### Masuk Folder Project
-
-```bash
-cd REPOSITORY
-```
-
-### Jalankan
-
-Buka file:
-
-```bash
-login.html
-```
-
-atau gunakan extension Live Server di VS Code.
-
----
 
 ## Role User
 
